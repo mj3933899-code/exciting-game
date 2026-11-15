@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>CYBER RUNNER - Neon Arcade</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://getmaya.cloud/_maya/db.js"></script>
+</head>
+<body>
+  <div id="game-container">
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- Top HUD overlay during gameplay -->
+    <div id="hud" class="hidden">
+      <div class="hud-top">
+        <div class="hud-box">
+          <span class="hud-label">SCORE</span>
+          <span id="score-display" class="hud-val">0</span>
+        </div>
+        <div class="hud-box">
+          <span class="hud-label">HIGH</span>
+          <span id="hud-high-score" class="hud-val">0</span>
+        </div>
+        <div class="hud-box">
+          <span class="hud-label">MULTIPLIER</span>
+          <span id="multiplier-display" class="hud-val accent">1x</span>
+        </div>
+        <button id="pause-btn" class="icon-btn" aria-label="Pause Game">⏸</button>
+      </div>
+      <div id="powerup-bar" class="powerup-bar"></div>
+    </div>
+
+    <!-- Start / Main Menu Screen -->
+    <div id="start-screen" class="overlay active">
+      <div class="panel">
+        <h1 class="glitch-title" data-text="CYBER RUSH">CYBER RUSH</h1>
+        <p class="subtitle">Dodge obstacles, collect cyber orbs, unleash power-ups!</p>
+        
+        <div class="mode-select">
+          <label>Control Mode:</label>
+          <div class="mode-options">
+            <button class="mode-btn active" data-mode="touch">Drag / Touch</button>
+            <button class="mode-btn" data-mode="arrows">Buttons / Keys</button>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button id="start-btn" class="primary-btn">⚡ PLAY NOW</button>
+          <button id="leaderboard-btn" class="secondary-btn">🏆 LEADERBOARD</button>
+          <button id="sound-toggle-btn" class="secondary-btn">🔊 SOUND: ON</button>
+        </div>
+
+        <div class="instructions">
+          <h3>How to Play</h3>
+          <ul>
+            <li>✨ Collect <strong>Orbs</strong> to build score & multiplier</li>
+            <li>🛡️ Pick up <strong>Shields</strong>, <strong>Slow-Mo</strong> & <strong>Bombs</strong></li>
+            <li>⚠️ Dodge laser barriers, rogue drones & plasma meteors</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leaderboard Modal -->
+    <div id="leaderboard-modal" class="overlay hidden">
+      <div class="panel modal-panel">
+        <h2>🏆 HALL OF FAME</h2>
+        <div id="leaderboard-list" class="leaderboard-list">
+          <div class="loading-spinner">Loading high scores...</div>
+        </div>
+        <button id="close-leaderboard" class="secondary-btn">Close</button>
+      </div>
+    </div>
+
+    <!-- Pause Screen -->
+    <div id="pause-screen" class="overlay hidden">
+      <div class="panel">
+        <h2>GAME PAUSED</h2>
+        <div class="btn-group">
+          <button id="resume-btn" class="primary-btn">▶ RESUME</button>
+          <button id="restart-from-pause" class="secondary-btn">🔄 RESTART</button>
+          <button id="quit-btn" class="secondary-btn">🚪 MAIN MENU</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="game-over-screen" class="overlay hidden">
+      <div class="panel">
+        <h2 class="danger-title">GAME OVER</h2>
+        <div class="final-stats">
+          <div class="stat-item">
+            <span>FINAL SCORE</span>
+            <strong id="final-score">0</strong>
+          </div>
+          <div class="stat-item">
+            <span>BEST SCORE</span>
+            <strong id="final-best">0</strong>
+          </div>
+          <div class="stat-item">
+            <span>ORBS COLLECTED</span>
+            <strong id="final-orbs">0</strong>
+          </div>
+        </div>
+
+        <div id="submit-score-section" class="submit-section">
+          <input type="text" id="player-name-input" placeholder="Enter your pilot name" maxlength="12" />
+          <button id="save-score-btn" class="action-btn">Submit Highscore</button>
+        </div>
+        <p id="save-status" class="status-msg"></p>
+
+        <div class="btn-group">
+          <button id="restart-btn" class="primary-btn">⚡ PLAY AGAIN</button>
+          <button id="menu-from-over" class="secondary-btn">🏠 MAIN MENU</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- On-screen directional controls for touch/arrow mode -->
+    <div id="touch-controls" class="touch-controls hidden">
+      <button id="btn-left" class="dpad-btn">◄</button>
+      <button id="btn-bomb" class="dpad-btn special-btn">💣</button>
+      <button id="btn-right" class="dpad-btn">►</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
